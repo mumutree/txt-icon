@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成专业级SVG或PNG图标</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1 class="title">生成专业级SVG或PNG图标</h1>
+            <p class="subtitle">通过自然语言描述生成专业级SVG或PNG图标</p>
+        </header>
+
+        <main class="main">
+            <!-- 输入控制区 -->
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="description" class="label">图标描述</label>
+                    <input 
+                        type="text" 
+                        id="description" 
+                        class="text-input" 
+                        placeholder="描述你需要的图标（如：爱心 填充 圆角）"
+                        maxlength="100"
+                    >
+                </div>
+
+                <button id="generateBtn" class="generate-btn">生成图标</button>
+            </section>
+
+            <!-- 预览区 -->
+            <section class="preview-section">
+                <div class="preview-header">
+                    <h2 class="section-title">预览</h2>
+                    <div class="background-toggle">
+                        <button class="bg-btn active" data-bg="light">浅色</button>
+                        <button class="bg-btn" data-bg="dark">深色</button>
+                        <button class="bg-btn" data-bg="transparent">透明</button>
+                    </div>
+                </div>
+
+                <div class="preview-main">
+                    <div class="style-previews" id="stylePreviews">
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewOutline">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">线性</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewFilled">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">填充</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewDuotone">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">双色</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewFlat">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">扁平</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewGradient">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">渐变</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewShadow">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">阴影</span>
+                        </div>
+                        <div class="style-preview-item">
+                            <div class="style-preview-canvas light-bg" id="previewGlow">
+                                <div class="placeholder">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="style-label">发光</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="size-preview">
+                    <div class="size-item">
+                        <div class="size-icon" data-size="16"></div>
+                        <span class="size-label">16px</span>
+                    </div>
+                    <div class="size-item">
+                        <div class="size-icon" data-size="24"></div>
+                        <span class="size-label">24px</span>
+                    </div>
+                    <div class="size-item">
+                        <div class="size-icon" data-size="32"></div>
+                        <span class="size-label">32px</span>
+                    </div>
+                    <div class="size-item">
+                        <div class="size-icon" data-size="48"></div>
+                        <span class="size-label">48px</span>
+                    </div>
+                    <div class="size-item">
+                        <div class="size-icon" data-size="64"></div>
+                        <span class="size-label">64px</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 控制区 -->
+            <section class="controls-section">
+                <div class="controls-row">
+                    <!-- 颜色选择 -->
+                    <div class="control-group">
+                        <label class="label">颜色</label>
+                        <div class="color-controls">
+                            <input type="color" id="colorPicker" class="color-picker" value="#3498db">
+                            <input type="text" id="colorInput" class="color-input" value="#3498db" maxlength="7">
+                        </div>
+                        <div class="color-presets">
+                            <button class="color-preset" data-color="#3498db" style="background-color: #3498db;"></button>
+                            <button class="color-preset" data-color="#2ecc71" style="background-color: #2ecc71;"></button>
+                            <button class="color-preset" data-color="#95a5a6" style="background-color: #95a5a6;"></button>
+                            <button class="color-preset" data-color="#f39c12" style="background-color: #f39c12;"></button>
+                            <button class="color-preset" data-color="#e74c3c" style="background-color: #e74c3c;"></button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+            <!-- 导出区 -->
+            <section class="export-section">
+                <h2 class="section-title">导出</h2>
+                <div class="export-buttons">
+                    <button id="exportSvg" class="export-btn primary">导出 SVG</button>
+                    <button id="exportPng" class="export-btn">导出 PNG</button>
+                    <button id="exportExtension" class="export-btn">一键下载所有尺寸的Png</button>
+                    <button id="copyCode" class="export-btn">复制代码</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- 状态提示 -->
+        <div id="toast" class="toast hidden">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
